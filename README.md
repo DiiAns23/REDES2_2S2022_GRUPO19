@@ -1,4 +1,11 @@
-# **PRACTICA 1📑**
+### Universidad de San Carlos de Guatemala, Mayo 2022
+### Facultad de Ingeniería
+### Escuela de Ciencias y Sistemas
+### Redes de Computadoras 1
+
+<img src='https://user-images.githubusercontent.com/36779113/128587817-1a6c2fdc-d106-4dd3-b092-104c8299bded.png' background='white'>
+
+
 
 ## Indice
 
@@ -9,6 +16,7 @@
   - [VTP](#vtp)
   - [Tabla de Subredes](#subredes)
   - [Preguntas Frecuentes](#questions)
+
 
 
 <div id = 'introduccion'>
