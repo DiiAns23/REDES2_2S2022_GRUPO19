@@ -46,6 +46,10 @@ Olimpia Books, es una empresa que se dedica a la venta y distribución de libros
 ## Topología
 ----------------------------------------------------------------------------
 
+<img src='https://github.com/DiiAns23/SoloImagenes/blob/main/Redes2_Practica1/a1.png' 
+background='white'>
+
+
 <div id = 'vtp'>
 
 ## VTP
