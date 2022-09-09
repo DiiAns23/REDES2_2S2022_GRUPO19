@@ -83,20 +83,19 @@ vlan 999
 name BLACKHOLE
 exit
 
-configure terminal
 vtp domain g19
 vtp password g19
 vtp mode server
 vtp version 2
 exit
 
-sh vtp-status
-
-configure terminal
+conf t
 int range f0/3-4
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
+exit
 
+sh vtp status
 ```
 
 ### VTP CLIENT - S0
@@ -109,10 +108,6 @@ vtp password g19
 vtp mode client
 vtp version 2
 exit
-
-sh vtp-status
-
-# Configuracion de puertos
 
 configure terminal
 int f0/1
@@ -127,39 +122,35 @@ exit
 
 int f0/3
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/5-7
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/10-11
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-# Configuracion de Port Channel
-
-configure terminal
 interface range f0/10-11
 channel-group 2 mode on
 exit
 
 int port-channel 2
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-configure terminal
 interface range f0/6-7
 channel-group 5 mode on
 exit
 
 int port-channel 5
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 ```
@@ -175,10 +166,6 @@ vtp mode client
 vtp version 2
 exit
 
-sh vtp-status
-
-# Configuracion de puertos
-
 configure terminal
 int f0/1
 switchport mode access
@@ -192,41 +179,38 @@ exit
 
 int range f0/4-5
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/8-9
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/12-13
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-# Configuracion de Port Channel
-
-configure terminal
 interface range f0/8-9
 channel-group 1 mode on
 exit
 
 int port-channel 1
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-configure terminal
 interface range f0/12-13
 channel-group 3 mode on
 exit
 
 int port-channel 3
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
+sh vtp status
 ```
 
 ### VTP CLIENT - S3
@@ -239,10 +223,6 @@ vtp password g19
 vtp mode client
 vtp version 2
 exit
-
-sh vtp-status
-
-# Configuracion de puertos
 
 configure terminal
 int f0/1
@@ -257,13 +237,15 @@ exit
 
 int range f0/5-6
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int f0/10
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
+
+sh vtp-status
 
 ```
 
@@ -278,10 +260,6 @@ vtp mode client
 vtp version 2
 exit
 
-sh vtp-status
-
-# Configuracion de puertos
-
 configure terminal
 int f0/1
 switchport mode access
@@ -295,56 +273,52 @@ exit
 
 int f0/6
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int f0/8
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/10-13
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/15-16
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-# Configuracion de Port Channel
-
-configure terminal
 interface range f0/10-11
 channel-group 2 mode on
 exit
 
 int port-channel 2
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-configure terminal
 interface range f0/15-16
 channel-group 4 mode on
 exit
 
 int port-channel 4
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-configure terminal
 interface range f0/12-13
 channel-group 3 mode on
 exit
 
 int port-channel 3
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
+sh vtp-status
 ```
 
 ### VTP CLIENT - S5
@@ -357,10 +331,6 @@ vtp password g19
 vtp mode client
 vtp version 2
 exit
-
-sh vtp-status
-
-# Configuracion de puertos
 
 configure terminal
 int f0/1
@@ -375,18 +345,20 @@ exit
 
 int f0/5
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int f0/8
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int f0/11
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
+
+sh vtp-status
 
 ```
 
@@ -401,51 +373,45 @@ vtp mode transparent
 vtp version 2
 exit
 
-sh vtp-status
-
-# Configuracion de puertos
-
+configure terminal
 int range f0/6-11
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
 int range f0/15-16
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-# Configuracion de Port Channel
-
-configure terminal
 interface range f0/6-7
 channel-group 5 mode on
 exit
 
 int port-channel 5
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-configure terminal
 interface range f0/15-16
 channel-group 4 mode on
 exit
 
 int port-channel 4
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
 
-configure terminal
 interface range f0/8-9
 channel-group 1 mode on
 exit
 
 int port-channel 1
 switchport mode trunk
-switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
+switchport trunk allowed vlan all
 exit
+
+sh vtp-status
 
 ```
 ----------------------------------------------------------------------------
