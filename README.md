@@ -18,6 +18,8 @@
   - [Topología](#topología)
   - [VTP](#vtp)
   - [Tabla de Subredes](#subredes)
+  - [Inter-vlans](#intervlans)
+  - [Asignacion de ips](#asignacion_ip)
   - [Preguntas Frecuentes](#questions)
 
 
@@ -441,15 +443,15 @@ ipconfig 192.168.11.4 255.255.255.192 192.168.11.1
 ## DISTRIBUCION
 ### PC1
 ```console
-ipconfig 192.168.11.65 255.255.255.192 192.168.11.65
+ipconfig 192.168.11.66 255.255.255.192 192.168.11.65
 ```
 ### PC5
 ```console
-ipconfig 192.168.11.66 255.255.255.192 192.168.11.65
+ipconfig 192.168.11.67 255.255.255.192 192.168.11.65
 ```
 ### PC3
 ```console
-ipconfig 192.168.11.67 255.255.255.192 192.168.11.65
+ipconfig 192.168.11.68 255.255.255.192 192.168.11.65
 ```
 
 ## ADMINISTRACION
@@ -471,6 +473,40 @@ ipconfig 192.168.11.194 255.255.255.192 192.168.11.193
 ```console
 ipconfig 192.168.11.195 255.255.255.192 192.168.11.193
 ```
+----------------------------------------------------------------------------
+<div id = 'intervlans'>
+
+### R1
+
+```console
+ena
+conf t
+ip routing
+int vlan 11
+description Interfaz de enlace para vlan 11
+ip address 192.168.11.1 255.255.255.192
+no shutdown
+exit
+
+int vlan 21
+description Interfaz de enlace para vlan 21
+ip address 192.168.11.65 255.255.255.192
+no shutdown
+exit
+
+int vlan 31
+description Interfaz de enlace para vlan 31
+ip address 192.168.11.129 255.255.255.192
+no shutdown
+exit
+
+int vlan 41
+description Interfaz de enlace para vlan 41
+ip address 192.168.11.193 255.255.255.192
+no shutdown
+exit
+```
+
 ----------------------------------------------------------------------------
 <div id = 'subredes'>
 
