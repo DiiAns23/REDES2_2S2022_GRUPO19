@@ -154,10 +154,10 @@ exit
 
 configure terminal
 interface range f0/6-7
-channel-group 0 mode on
+channel-group 5 mode on
 exit
 
-int port-channel 0
+int port-channel 5
 switchport mode trunk
 switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
 exit
@@ -419,10 +419,10 @@ exit
 
 configure terminal
 interface range f0/6-7
-channel-group 0 mode on
+channel-group 5 mode on
 exit
 
-int port-channel 0
+int port-channel 5
 switchport mode trunk
 switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
 exit
@@ -448,14 +448,71 @@ switchport trunk allowed vlan 1,11,21,31,41,99,999,1002-1005
 exit
 
 ```
-
-<div id = 'subredes'>
-
-## Tabla de Subredes
 ----------------------------------------------------------------------------
-
 <div id = 'questions'>
 
 ## Preguntas Frecuentes
 ----------------------------------------------------------------------------
 
+<div id = 'asignacion_ip'>
+
+## Asignación de ip a las vpc´s
+
+## VENTAS
+### PC0
+```console
+ipconfig 192.168.11.2 255.255.255.192 192.168.11.1
+```
+### PC4
+```console
+ipconfig 192.168.11.3 255.255.255.192 192.168.11.1
+```
+### PC7
+```console
+ipconfig 192.168.11.4 255.255.255.192 192.168.11.1
+```
+
+## DISTRIBUCION
+### PC1
+```console
+ipconfig 192.168.11.65 255.255.255.192 192.168.11.65
+```
+### PC5
+```console
+ipconfig 192.168.11.66 255.255.255.192 192.168.11.65
+```
+### PC3
+```console
+ipconfig 192.168.11.67 255.255.255.192 192.168.11.65
+```
+
+## ADMINISTRACION
+### PC6
+```console
+ipconfig 192.168.11.130 255.255.255.192 192.168.11.129
+```
+### PC2
+```console
+ipconfig 192.168.11.131 255.255.255.192 192.168.11.129
+```
+
+## SERVIDORES
+### SERVER0
+```console
+ipconfig 192.168.11.194 255.255.255.192 192.168.11.193
+```
+### SERVER1
+```console
+ipconfig 192.168.11.195 255.255.255.192 192.168.11.193
+```
+----------------------------------------------------------------------------
+<div id = 'subredes'>
+
+## Tabla de Subredes FLSM
+
+| Subred | No Hosts | Ip | Mascara | Primer Host | Ultimo Host | Broadcast |
+|-------|-----------|----|-------- | ---------- | ----------- | --------- |
+| 1 |	62 |	192.168.11.0 /26 |	255.255.255.192 |	192.168.11.1 |	192.168.11.62 |	192.168.11.63 |
+| 2 |	62 |	192.168.11.64 /26 |	255.255.255.192 |	192.168.11.65 |	192.168.11.126 |	192.168.11.127 |
+| 3 |	62 |	192.168.11.128 /26 |	255.255.255.192 |	192.168.11.129 |	192.168.11.190 |	192.168.11.191 |
+| 4 |	62 |	192.168.11.192 /26 |	255.255.255.192 |	192.168.11.193 |	192.168.11.254 |	192.168.11.255 |
