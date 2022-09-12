@@ -17,10 +17,12 @@
   - [Integrantes](#integrantes)
   - [Topología](#topología)
   - [VTP](#vtp)
-  - [Tabla de Subredes](#subredes)
   - [Inter-vlans](#intervlans)
   - [Asignacion de ips](#asignacion_ip)
-  - [Preguntas Frecuentes](#questions)
+  - [Protocolos EthernetChannel](#stp-ether-channel)
+  - [Tabla pruebas de convergencia](#pruebas-convergencia)
+  - [Tabla de Subredes](#subredes)
+  - [Documentacion](#documentacion)
 
 
 
@@ -508,12 +510,12 @@ exit
 ```
 
 ----------------------------------------------------------------------------
-<div id = 'subredes'>
+<div id = 'stp-ether-channel'>
 
 ## Protocolos EthernetChannel PAGP
 
 ## S0
-```
+```console
 interface range f0/6-7
 no channel-protocol
 no channel-group
@@ -557,7 +559,7 @@ exit
 ```
 
 ## S1
-```
+```console
 interface range f0/8-9
 no channel-protocol
 no channel-group
@@ -610,7 +612,7 @@ exit
 
 
 ## S2
-```
+```console
 interface range f0/8-9
 no channel-protocol
 no channel-group
@@ -650,7 +652,7 @@ exit
 
 
 ## S4
-```
+```console
 interface range f0/10-11
 no channel-protocol
 no channel-group
@@ -706,7 +708,7 @@ exit
 ## Protocolos EthernetChannel LACP
 
 ## S0
-```
+```console
 interface range f0/6-7
 no channel-protocol
 no channel-group
@@ -743,7 +745,7 @@ exit
 ```
 
 ## S1
-```
+```console
 interface range f0/8-9
 no channel-protocol
 no channel-group
@@ -796,7 +798,7 @@ exit
 
 
 ## S2
-```
+```console
 interface range f0/8-9
 no channel-protocol
 no channel-group
@@ -836,7 +838,7 @@ exit
 
 
 ## S4
-```
+```console
 interface range f0/10-11
 no channel-protocol
 no channel-group
@@ -888,6 +890,19 @@ switchport mode trunk
 switchport trunk allowed vlan all
 exit
 ```
+----------------------------------------------------------------------------
+<div id = 'pruebas-convergencia'>
+
+## Resultados de las pruebas para convergencia
+| Escenario | Tipo Etherchannel |	Protocolo STP | Tiempo |	Cantidad timeOuts |
+| --- | --- | --- | ----- | ------ | 
+| 1 | LACP | PVST |	59.87 segundos | 6  |
+| 2 | LACP | Rapid PVST |	1 ms | 0  |
+| 3 | PAGP | PVST |	59.87 Segundos | 6  |
+| 4 | PAGP | Rapid PVST |	14.1 Segundos | 2  |
+
+----------------------------------------------------------------------------
+<div id = 'subredes'>
 
 ## Tabla de Subredes FLSM
 
@@ -897,3 +912,16 @@ exit
 | 2 |	62 |	192.168.11.64 /26 |	255.255.255.192 |	192.168.11.65 |	192.168.11.126 |	192.168.11.127 |
 | 3 |	62 |	192.168.11.128 /26 |	255.255.255.192 |	192.168.11.129 |	192.168.11.190 |	192.168.11.191 |
 | 4 |	62 |	192.168.11.192 /26 |	255.255.255.192 |	192.168.11.193 |	192.168.11.254 |	192.168.11.255 |
+
+----------------------------------------------------------------------------
+<div id = 'documentacion'>
+
+# Documentación
+
+## Explicación de VTP
+
+## Explicación subneting
+
+## Explicación mejor escenario de convergencia
+
+Nuestro mejor tipo fue LACP y nuestro protocolo RAPID PVST, al usar ésta configuración no se recibió ningún timeout, por ésto definimos que para ésta topología es muy eficiente dejar estos tipos de protocolos.
