@@ -510,6 +510,385 @@ exit
 ----------------------------------------------------------------------------
 <div id = 'subredes'>
 
+## Protocolos EthernetChannel PAGP
+
+## S0
+```
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+interface range f0/6-7
+channel-protocol pagp
+channel-group 5 mode desirable
+exit
+
+interface range f0/10-11
+channel-protocol pagp
+channel-group 2 mode desirable
+exit
+
+interface range f0/10-11
+channel-group 2 mode on
+exit
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+interface range f0/6-7
+channel-group 5 mode on
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+## S1
+```
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+
+interface range f0/8-9
+channel-protocol pagp
+channel-group 1 mode desirable
+exit
+
+interface range f0/15-16
+channel-protocol pagp
+channel-group 4 mode desirable
+exit
+
+interface range f0/6-7
+channel-protocol pagp
+channel-group 5 mode desirable
+exit
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S2
+```
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+
+
+interface range f0/8-9
+channel-protocol pagp
+channel-group 1 mode desirable
+exit
+
+interface range f0/12-13
+channel-protocol pagp
+channel-group 3 mode desirable
+exit
+
+
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S4
+```
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+
+interface range f0/10-11
+channel-protocol pagp
+channel-group 2 mode desirable
+exit
+
+interface range f0/12-13
+channel-protocol pagp
+channel-group 3 mode desirable
+exit
+
+interface range f0/15-16
+channel-protocol pagp
+channel-group 4 mode desirable
+exit
+
+
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+## Protocolos EthernetChannel LACP
+
+## S0
+```
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+
+interface range f0/6-7
+channel-protocol lacp
+channel-group 5 mode active
+exit
+
+interface range f0/10-11
+channel-protocol lacp
+channel-group 2 mode active
+exit
+
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+## S1
+```
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+
+interface range f0/8-9
+channel-protocol lacp
+channel-group 1 mode active
+exit
+
+interface range f0/15-16
+channel-protocol lacp
+channel-group 4 mode active
+exit
+
+interface range f0/6-7
+channel-protocol lacp
+channel-group 5 mode active
+exit
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S2
+```
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+
+
+interface range f0/8-9
+channel-protocol lacp
+channel-group 1 mode active
+exit
+
+interface range f0/12-13
+channel-protocol lacp
+channel-group 3 mode active
+exit
+
+
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S4
+```
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+
+interface range f0/10-11
+channel-protocol lacp
+channel-group 2 mode active
+exit
+
+interface range f0/12-13
+channel-protocol lacp
+channel-group 3 mode active
+exit
+
+interface range f0/15-16
+channel-protocol lacp
+channel-group 4 mode active
+exit
+
+
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
 ## Tabla de Subredes FLSM
 
 | Subred | No Hosts | Ip | Mascara | Primer Host | Ultimo Host | Broadcast |
