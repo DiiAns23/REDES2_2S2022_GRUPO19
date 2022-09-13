@@ -17,8 +17,12 @@
   - [Integrantes](#integrantes)
   - [Topología](#topología)
   - [VTP](#vtp)
+  - [Inter-vlans](#intervlans)
+  - [Asignacion de ips](#asignacion_ip)
+  - [Protocolos EthernetChannel](#stp-ether-channel)
+  - [Tabla pruebas de convergencia](#pruebas-convergencia)
   - [Tabla de Subredes](#subredes)
-  - [Preguntas Frecuentes](#questions)
+  - [Documentacion](#documentacion)
 
 
 
@@ -441,15 +445,15 @@ ipconfig 192.168.11.4 255.255.255.192 192.168.11.1
 ## DISTRIBUCION
 ### PC1
 ```console
-ipconfig 192.168.11.65 255.255.255.192 192.168.11.65
+ipconfig 192.168.11.66 255.255.255.192 192.168.11.65
 ```
 ### PC5
 ```console
-ipconfig 192.168.11.66 255.255.255.192 192.168.11.65
+ipconfig 192.168.11.67 255.255.255.192 192.168.11.65
 ```
 ### PC3
 ```console
-ipconfig 192.168.11.67 255.255.255.192 192.168.11.65
+ipconfig 192.168.11.68 255.255.255.192 192.168.11.65
 ```
 
 ## ADMINISTRACION
@@ -472,6 +476,432 @@ ipconfig 192.168.11.194 255.255.255.192 192.168.11.193
 ipconfig 192.168.11.195 255.255.255.192 192.168.11.193
 ```
 ----------------------------------------------------------------------------
+<div id = 'intervlans'>
+
+### R1
+
+```console
+ena
+conf t
+ip routing
+int vlan 11
+description Interfaz de enlace para vlan 11
+ip address 192.168.11.1 255.255.255.192
+no shutdown
+exit
+
+int vlan 21
+description Interfaz de enlace para vlan 21
+ip address 192.168.11.65 255.255.255.192
+no shutdown
+exit
+
+int vlan 31
+description Interfaz de enlace para vlan 31
+ip address 192.168.11.129 255.255.255.192
+no shutdown
+exit
+
+int vlan 41
+description Interfaz de enlace para vlan 41
+ip address 192.168.11.193 255.255.255.192
+no shutdown
+exit
+```
+
+----------------------------------------------------------------------------
+<div id = 'stp-ether-channel'>
+
+## Protocolos EthernetChannel PAGP
+
+## S0
+```console
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+interface range f0/6-7
+channel-protocol pagp
+channel-group 5 mode desirable
+exit
+
+interface range f0/10-11
+channel-protocol pagp
+channel-group 2 mode desirable
+exit
+
+interface range f0/10-11
+channel-group 2 mode on
+exit
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+interface range f0/6-7
+channel-group 5 mode on
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+## S1
+```console
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+
+interface range f0/8-9
+channel-protocol pagp
+channel-group 1 mode desirable
+exit
+
+interface range f0/15-16
+channel-protocol pagp
+channel-group 4 mode desirable
+exit
+
+interface range f0/6-7
+channel-protocol pagp
+channel-group 5 mode desirable
+exit
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S2
+```console
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+
+
+interface range f0/8-9
+channel-protocol pagp
+channel-group 1 mode desirable
+exit
+
+interface range f0/12-13
+channel-protocol pagp
+channel-group 3 mode desirable
+exit
+
+
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S4
+```console
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+
+interface range f0/10-11
+channel-protocol pagp
+channel-group 2 mode desirable
+exit
+
+interface range f0/12-13
+channel-protocol pagp
+channel-group 3 mode desirable
+exit
+
+interface range f0/15-16
+channel-protocol pagp
+channel-group 4 mode desirable
+exit
+
+
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+## Protocolos EthernetChannel LACP
+
+## S0
+```console
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+
+interface range f0/6-7
+channel-protocol lacp
+channel-group 5 mode active
+exit
+
+interface range f0/10-11
+channel-protocol lacp
+channel-group 2 mode active
+exit
+
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+## S1
+```console
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+interface range f0/6-7
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 5
+
+
+interface range f0/8-9
+channel-protocol lacp
+channel-group 1 mode active
+exit
+
+interface range f0/15-16
+channel-protocol lacp
+channel-group 4 mode active
+exit
+
+interface range f0/6-7
+channel-protocol lacp
+channel-group 5 mode active
+exit
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 5
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S2
+```console
+interface range f0/8-9
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 1
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+
+
+interface range f0/8-9
+channel-protocol lacp
+channel-group 1 mode active
+exit
+
+interface range f0/12-13
+channel-protocol lacp
+channel-group 3 mode active
+exit
+
+
+
+int port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+
+
+## S4
+```console
+interface range f0/10-11
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 2
+
+interface range f0/12-13
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 3
+
+interface range f0/15-16
+no channel-protocol
+no channel-group
+exit
+no interface port-channel 4
+
+
+interface range f0/10-11
+channel-protocol lacp
+channel-group 2 mode active
+exit
+
+interface range f0/12-13
+channel-protocol lacp
+channel-group 3 mode active
+exit
+
+interface range f0/15-16
+channel-protocol lacp
+channel-group 4 mode active
+exit
+
+
+
+int port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+
+int port-channel 4
+switchport mode trunk
+switchport trunk allowed vlan all
+exit
+```
+----------------------------------------------------------------------------
+<div id = 'pruebas-convergencia'>
+
+## Resultados de las pruebas para convergencia
+| Escenario | Tipo Etherchannel |	Protocolo STP | Tiempo |	Cantidad timeOuts |
+| --- | --- | --- | ----- | ------ | 
+| 1 | LACP | PVST |	59.87 segundos | 6  |
+| 2 | LACP | Rapid PVST |	1 ms | 0  |
+| 3 | PAGP | PVST |	59.87 Segundos | 6  |
+| 4 | PAGP | Rapid PVST |	14.1 Segundos | 2  |
+
+----------------------------------------------------------------------------
 <div id = 'subredes'>
 
 ## Tabla de Subredes FLSM
@@ -482,3 +912,16 @@ ipconfig 192.168.11.195 255.255.255.192 192.168.11.193
 | 2 |	62 |	192.168.11.64 /26 |	255.255.255.192 |	192.168.11.65 |	192.168.11.126 |	192.168.11.127 |
 | 3 |	62 |	192.168.11.128 /26 |	255.255.255.192 |	192.168.11.129 |	192.168.11.190 |	192.168.11.191 |
 | 4 |	62 |	192.168.11.192 /26 |	255.255.255.192 |	192.168.11.193 |	192.168.11.254 |	192.168.11.255 |
+
+----------------------------------------------------------------------------
+<div id = 'documentacion'>
+
+# Documentación
+
+## Explicación de VTP
+
+## Explicación subneting
+
+## Explicación mejor escenario de convergencia
+
+Nuestro mejor tipo fue LACP y nuestro protocolo RAPID PVST, al usar ésta configuración no se recibió ningún timeout, por ésto definimos que para ésta topología es muy eficiente dejar estos tipos de protocolos.
