@@ -1,8 +1,18 @@
-# MANUAL TÉCNICO 
+# **MANUAL TÉCNICO**
 --------------------------------------
+
+## **INDICE**
+
+ - [VTP](#vtp)
+ - [ASIGNACION DE IP's](#ip)
+ - [SUBREDES](#subredes)
+
+
 Para la configuración de Cada Nodo utilizado en la topología mostrada anteriormente, se ha realizado el uso de diferentes instrucciones que se detallan a continuación. Se utilizaron protocolos VTP, VLANS, STP, Ethernet Channel con sus variantes LACP y PAGP.
 
-## VTP
+<div id = "vtp">
+
+## **VTP**
 ----------------------------------------------------------------------------
 Como primera configuración se crea la configuración de las VTP utilizando los nodos 
 
@@ -385,9 +395,9 @@ Como primera configuración se crea la configuración de las VTP utilizando los 
 
 ----------------------------------------------------------------------------
 
-<div id = 'asignacion_ip'>
+<div id = "ip">
 
-## ASIGNACION DE IP's
+## **ASIGNACION DE IP's**
 
 A cada PC-PT se le ha asignado una dirección IP la cual realiza la distinción entre cada una de las redes. Se utilizaron las VLAN's explicadas en el primero punto.
 
@@ -441,9 +451,12 @@ A continuacion se detalla la direccion ip, mascara de subred y gateway de cada u
     ipconfig 192.168.11.195 255.255.255.192 192.168.11.193
     ```
 ----------------------------------------------------------------------------
+
+
 <div id = 'subredes'>
 
-## SUBREDES FLSM
+
+## **SUBREDES FLSM**
 
 | Subred | No Hosts | Ip | Mascara | Primer Host | Ultimo Host | Broadcast |
 |-------|-----------|----|-------- | ---------- | ----------- | --------- |
