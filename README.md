@@ -16,9 +16,6 @@
   - [Manual Tecnico](/Manual%20Tecnico.md)
   - [Manual Usuario](/Manual%20Usuario.md)
 
-
-
-
 <div id = 'introduccion'>
 
 ## Introduccion
@@ -45,8 +42,3 @@ Olimpia Books, es una empresa que se dedica a la venta y distribución de libros
 
 <img src='https://github.com/DiiAns23/SoloImagenes/blob/main/Redes2_Practica1/a1.png' 
 background='white'>
-
-<div id = 'questions'>
-
-## Preguntas Frecuentes
-----------------------------------------------------------------------------
