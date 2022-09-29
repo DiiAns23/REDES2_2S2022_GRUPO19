@@ -6,17 +6,11 @@
 
 | Nombre:                     | Carné     |
 | --------------------------- | --------- |
-| GERSON GABRIEL REYES MELGAR | 201503906 |
-| ALEX YOVANI JERÓNIMO TOMÁS  | 201602912 |
-| JORGE DAVID ESPINA MOLINA   | 201403632 |
+| ALDO RIGOBERTO HERNANDEZ AVILA  | 201800585 |
+| JOSUE DAVID ZEA HERRERA  | 201807159 |
+
 
 ## Topología
-
-<details><summary>IMAGEN(+)</summary>
-
-![Alt text](topo.png?raw=true "Title")
-
-</details>
 
 ## Vodafone
 ## **FLSM**
@@ -459,7 +453,6 @@ exit
 ```
 
 ## **BGP**
-
 ###  **Telefonica**
 ```
 enable
@@ -484,224 +477,52 @@ exit
 ```
 
 ## **REDISTRIBUCION**
-
+### **TR4**
 ```
-
-** ROUTER TR4
-
-Router#conf t
-Router(config)#
-Router(config)#router eigrp 100
-Router(config-router)#redistribute rip metric 255 1 1 1 1
-Router(config-router)#exit
-
-Router(config)#router rip 
-Router(config-router)#redistribute eigrp 100 metric 15
-Router(config-router)#exit
-Router(config)#exit
-Router#
-
-** ROUTER "vodafone"
-
-Router#conf t
-Router(config)#
-Router(config)#route bgp 100
-Router(config-router)#redistribute ospf 300
-Router(config-router)#exit
-Router(config)#
-Router(config)#router ospf 300
-Router(config-router)#redistribute bgp 100 metric 1 subnets
-Router(config-router)#exit
-Router(config)#exit
-Router#
-
-NECESARIO HACER ESTO, PARA QUE FUNCIONE LA REDISTRIBUCIÓN ENTRE LOS ISP's
-CADA RED AGREGADA ES UNA EN LA QUE ESTA CONFIGURADA EL PROTOCOLO RIP 
-
-
-
-Router#conf t
-Router(config)#router bgp 100
-Router(config-router)#
-Router(config-router)#
-Router(config-router)#redistribute connected
-Router(config-router)#network 192.168.58.32 mask 255.255.255.224
-Router(config-router)#network 192.168.58.16 mask 255.255.255.224
-Router(config-router)#network 192.168.58.160 mask 255.255.255.224
-Router(config-router)#network 192.168.58.128 mask 255.255.255.224
-Router(config-router)#network 192.168.58.0 mask 255.255.255.224
-Router(config-router)#
-
-
-** ROUTER "telefonica"
-
-Router#conf t
-Router(config)#route bgp 200
-Router(config-router)#redistribute eigrp 100
-Router(config-router)#exit
-Router(config)#
-Router(config)#router eigrp 100
-Router(config-router)#redistribute bgp 200 metric 1 1 1 1 1
-Router(config-router)#exit
-Router(config)#
-
-
-Comandos adicionales para comunicacion entre RIP y BGP
-
-Dentro de RIP
-- version 2
-- default-information originate
-
-Dentro de BGP
-- redistribute connected
-- Se agrega como red todas las conexiones que esten con protocolo RIP
-
-
-
-```
-
-</p>
-</details>
-
-<details><summary>ACCESS LIST(+)</summary>
-<p>
-
-```
-
-** ROUTER TR2
-
-Router>enable
-Router#conf t
-Router(config)#access-list 101 permit ip 192.168.98.0 0.0.0.63 192.168.58.64 0.0.0.31
-Router(config)#access-list 101 permit ip 192.168.98.0 0.0.0.63 192.168.58.0 0.0.0.31
-Router(config)#access-list 101 deny ip 192.168.98.0 0.0.0.63 any 
-Router(config)#exit
-Router#
-Router#sh access-list
-Extended IP access list 101
-    10 permit ip 192.168.98.0 0.0.0.63 192.168.58.64 0.0.0.31
-	20 permit ip 192.168.98.0 0.0.0.63 192.168.58.0 0.0.0.31
-    30 deny ip 192.168.98.0 0.0.0.63 any
-
-Router#
-Router#
-Router#
-Router#conf t
-Router(config)#int gig0/1
-Router(config-if)#ip access-group 101 in 
-Router(config-if)#end
-Router#
-Router#wr
-Router#
-
-
-** ROUTER TR3
-
-Router#
-Router#conf t 
-Router(config)#access-list 101 permit ip 192.168.98.64 0.0.0.63 192.168.58.64 0.0.0.31
-Router(config)#access-list 101 permit ip 192.168.98.64 0.0.0.63 192.168.98.128 0.0.0.63
-Router(config)#access-list 101 deny ip 192.168.98.64 0.0.0.63 any
-Router(config)#exit
-Router#
-Router#sh access-list 
-Extended IP access list 101
-    10 permit ip 192.168.98.64 0.0.0.63 192.168.58.64 0.0.0.31
-    20 permit ip 192.168.98.64 0.0.0.63 192.168.98.128 0.0.0.63
-    30 deny ip 192.168.98.64 0.0.0.63 any
-
-Router#conf t
-Router(config)#int gig0/1
-Router(config-if)#ip access-group 101 in 
-Router(config-if)#exit
-Router(config)#exit
-Router#wr
-Router#
-
-
-
-** ROUTER "TR4"
-
-Router#
-Router#conf t 
-Router(config)#access-list 101 permit ip 192.168.98.128 0.0.0.63 192.168.58.64 0.0.0.31
-Router(config)#access-list 101 permit ip 192.168.98.128 0.0.0.63 192.168.98.64 0.0.0.63
-Router(config)#access-list 101 deny ip 192.168.98.128 0.0.0.63 any
-Router(config)#exit
-Router#
-Router#sh access-list 
-Extended IP access list 101
-    10 permit ip 192.168.98.128 0.0.0.63 192.168.58.64 0.0.0.31
-    20 permit ip 192.168.98.128 0.0.0.63 192.168.98.64 0.0.0.63
-    30 deny ip 192.168.98.128 0.0.0.63 any
-
-Router#conf t
-Router(config)#int gig0/1
-Router(config-if)#ip access-group 101 in 
-Router(config-if)#exit
-Router(config)#exit
-Router#wr
-Router#
-
-
-
---copy running-config startup-config
-
-```
-
-</p>
-</details>
-
-## IPV6
-
-<details><summary>IPV6(+)</summary>
-
-![Alt text](ipv6.jpeg?raw=true "Title")
-
-```
-
-** routerFPublica
-enable
 conf t
-ipv6 unicast-routing
-int gig0/1
-ipv6 address 2002:c0a8:3a41::/48
-ipv6 enable
+router eigrp 100
+redistribute rip metric 255 1 1 1 1
 exit
-int gig0/0
-ipv6 address 2002:c0a8:3ae1::/48
-ipv6 enable
-
-** routerEstrella
-enable
-conf t
-ipv6 unicast-routing
-ipv6 router rip enlacerip
-int gig0/1
-ipv6 address 2002:c0a8:3ae2::/48
-
-ipv6 enable
+router rip 
+redistribute eigrp 100 metric 15
 exit
-int gig0/2
-ipv6 address 2002:c0a8:3aa1::/48
-ipv6 rip enlacerip enable
-ipv6 enable
-
-** routerDEmpresarial
-enable
-conf t
-ipv6 unicast-routing
-ipv6 router rip enlacerip
-int gig0/1
-ipv6 address 2002:c0a8:3a81::/48
-ipv6 rip enlacerip enable
-ipv6 enable
 exit
-int gig0/0
-ipv6 address 2002:c0a8:3aa2::/48
-ipv6 rip enlacerip enable
-ipv6 enable
-
 ```
 
-</details>
+
+### **Vodafone**
+
+```
+conf t
+route bgp 100
+redistribute ospf 300
+exit
+router ospf 300
+redistribute bgp 100 metric 1 subnets
+exit
+exit
+
+conf t
+router bgp 100
+redistribute connected
+network 192.168.29.32 mask 255.255.255.224
+network 192.168.29.16 mask 255.255.255.224
+network 192.168.29.160 mask 255.255.255.224
+network 192.168.29.128 mask 255.255.255.224
+network 192.168.29.0 mask 255.255.255.224
+exit
+exit
+```
+
+## **Telefonica**
+```
+conf t
+route bgp 200
+redistribute eigrp 100
+exit
+
+router eigrp 100
+redistribute bgp 200 metric 1 1 1 1 1
+exit
+exit
+```
