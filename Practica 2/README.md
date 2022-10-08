@@ -459,7 +459,9 @@ enable
 conf t
 router bgp 200
 network 192.168.29.96 mask 255.255.255.224
+network 7.7.7.0 mask 255.255.255.224
 neighbor 192.168.29.97 remote-as 100
+neighbor 7.7.7.1 remote-as 300
 exit
 exit
 ```
