@@ -1,0 +1,6 @@
+  backend:
+    image: back:v0
+    container_name: backend_redes2
+    ports:
+    - "80:3000"
+    restart: always
