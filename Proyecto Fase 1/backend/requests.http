@@ -1,0 +1,10 @@
+###
+GET http://34.238.232.77:80 
+###
+GET http://34.238.232.77:80/administradores
+###
+GET http://34.238.232.77:80/desarrolladores 
+###
+GET http://34.238.232.77:80/estadisticas 
+###
+GET http://34.238.232.77:80/funciones 
